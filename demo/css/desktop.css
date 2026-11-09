@@ -158,3 +158,30 @@ body.desk{display:block;background:#161823;overflow:hidden}
 /* v12: neutral blurred sides in the room (no team colors) */
 .d-stage{background:#1b1b20}
 .d-stage::before{background:radial-gradient(circle at 50% 45%,#3a3a42,transparent 65%);opacity:.6}
+
+/* v13: home banner carousel instead of a featured live player */
+.d-banner{position:relative;border-radius:12px;overflow:hidden;background:#18181f}
+.d-slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:0 64px 0 48px;
+  opacity:0;visibility:hidden;transition:opacity .5s,visibility .5s;cursor:pointer}
+.d-slide.on{opacity:1;visibility:visible}
+.d-bn-text{max-width:52%}
+.d-bn-tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;padding:3px 8px;border-radius:4px;background:#ffffff1f;color:#ffffffd9}
+.d-bn-tag.live{background:var(--pink);color:#fff}
+.d-bn-text h2{font-size:clamp(26px,2.6vw,40px);font-weight:800;line-height:1.15;margin:14px 0 10px}
+.d-bn-text p{font-size:15px;color:#ffffffb3;line-height:1.5;margin-bottom:22px}
+.d-bn-cta{background:var(--pink);color:#fff;font-weight:700;font-size:15px;padding:11px 26px;border-radius:999px}
+.d-bn-cta:hover{filter:brightness(1.1)}
+.d-bn-vs{display:flex;align-items:center;gap:18px;flex-shrink:0}
+.d-bn-badge{display:grid;place-items:center;border-radius:50%;font-weight:800;color:#fff;text-shadow:0 1px 2px #0008;border:3px solid #ffffff40}
+.d-bn-badge.big{width:clamp(72px,7vw,110px);height:clamp(72px,7vw,110px);font-size:clamp(18px,1.7vw,26px)}
+.d-bn-mid{display:flex;flex-direction:column;align-items:center;gap:4px}
+.d-bn-mid b{font-size:clamp(22px,2.2vw,34px);font-weight:800;white-space:nowrap}
+.d-bn-mid small{color:#ffd400;font-size:14px;font-weight:600}
+.d-bn-icon{width:clamp(110px,10vw,160px);height:clamp(110px,10vw,160px);border-radius:50%;display:grid;place-items:center;font-size:clamp(52px,5vw,80px);background:#ffffff10}
+.d-bn-arrow{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;background:#0006;color:#fff;font-size:22px;line-height:1;opacity:0;transition:opacity .2s}
+.d-banner:hover .d-bn-arrow{opacity:1}
+.d-bn-arrow.prev{left:10px}.d-bn-arrow.next{right:10px}
+.d-bn-dots{position:absolute;left:48px;bottom:18px;display:flex;gap:6px}
+.d-bn-dots button{width:8px;height:8px;border-radius:4px;background:#ffffff4d;transition:width .3s,background .3s}
+.d-bn-dots button.on{width:22px;background:#fff}
+@media (prefers-reduced-motion:reduce){.d-slide{transition:none}}
