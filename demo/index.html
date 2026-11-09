@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coichua – Live (demo)</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/match-sheet.css">
+</head>
+<body>
+<div class="app" id="app">
+  <header class="top">
+    <button class="tb-menu" data-icon="menu" aria-label="Menu"><span class="dot">3</span></button>
+    <img class="logo" src="img/logo.png" alt="Coichua">
+    <nav class="tabs">
+      <button data-i18n="following">Following</button>
+      <button class="on" data-i18n="foryou">For You</button>
+    </nav>
+    <button class="tb-search" data-icon="search" aria-label="Search"></button>
+  </header>
+  <button class="discover-toggle" id="discoverToggle"><span data-i18n="discover">Live discovery</span> ▾</button>
+  <div class="discover" id="discover">
+    <div class="dc-hosts" id="dcHosts"></div>
+    <div class="dc-chips" id="dcChips"></div>
+  </div>
+  <div class="proto" data-i18n="proto">Demo · sample data</div>
+
+  <main class="feed" id="feed"></main>
+
+  <div class="hint" id="hint" data-i18n="hint">Tap to enter · swipe for more</div>
+  <div class="toast" id="toast"></div>
+
+  <nav class="nav">
+    <button class="on" data-i18n="nHome">Home</button>
+    <button data-soon data-i18n="nSchedule">Schedule</button>
+    <button data-soon class="plus" aria-label="Go live">＋</button>
+    <button data-soon class="inbox"><span data-i18n="nInbox">Inbox</span><i class="badge99">99+</i></button>
+    <button data-soon data-i18n="nMe">Me</button>
+  </nav>
+</div>
+
+<script src="js/icons.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/mock-data.js"></script>
+<script src="js/match-data.js"></script>
+<script src="js/stage.js"></script>
+<script src="js/match-sheet.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
