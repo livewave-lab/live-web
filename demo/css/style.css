@@ -1,0 +1,134 @@
+/* Coichua live room demo — copies Douyin's live room UI.
+   Two states: preview (browsing the feed, not entered) and entered (inside a live room). */
+:root{
+  --bg:#000; --text:#fff; --muted:rgba(255,255,255,.65); --pink:#fe2c55; --chat-name:#a9c4ff; --notice:#8be3ff;
+  --line:rgba(255,255,255,.1); --safe-b:env(safe-area-inset-bottom,0px); --nav-h:52px; --bar-h:54px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:#000;color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Segoe UI","Noto Sans","Helvetica Neue",Arial,sans-serif}
+body{display:flex;justify-content:center;align-items:stretch;overflow:hidden}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.app{position:relative;width:100%;max-width:430px;height:100dvh;background:var(--bg);overflow:hidden}
+@media (min-width:600px){ body{align-items:center;background:#111} .app{height:min(92dvh,900px);border-radius:28px;box-shadow:0 0 0 1px #2a2a2a} }
+
+/* ---------- feed chrome: only while browsing (not entered), copies Douyin ---------- */
+.top{position:absolute;inset:0 0 auto 0;height:48px;z-index:20;display:flex;align-items:center;gap:10px;padding:0 12px;
+  background:linear-gradient(#0009,#0000);transition:opacity .2s}
+.tb-menu,.tb-search{width:28px;height:28px;display:grid;place-items:center;position:relative;flex:none}
+.tb-menu svg,.tb-search svg{width:22px;height:22px}
+.tb-menu .dot{position:absolute;top:-2px;left:14px;min-width:15px;height:15px;border-radius:8px;background:var(--pink);font-size:9px;font-weight:700;
+  display:grid;place-items:center;padding:0 3px}
+.logo{height:12px;width:auto;flex:none}
+.tabs{flex:1;display:flex;justify-content:center;gap:18px;font-size:15px;color:var(--muted);white-space:nowrap}
+.tabs button.on{color:var(--text);font-weight:700;position:relative}
+.tabs button.on::after{content:"";position:absolute;left:50%;bottom:-6px;width:18px;height:2px;margin-left:-9px;background:#fff;border-radius:1px}
+.discover-toggle{position:absolute;top:50px;left:50%;transform:translateX(-50%);z-index:20;font-size:11px;color:#ffffffcc;transition:opacity .2s}
+.discover{position:absolute;top:0;left:0;right:0;z-index:19;background:#0e0e12;padding:56px 0 10px;transform:translateY(-100%);transition:transform .25s ease}
+.app.discover-open .discover{transform:none}
+.app.discover-open .discover-toggle{top:auto;bottom:-999px}
+.dc-hosts{display:flex;gap:14px;overflow-x:auto;padding:4px 12px 10px;scrollbar-width:none}
+.dc-host{display:flex;flex-direction:column;align-items:center;width:58px;flex:none;position:relative}
+.dc-host .ring{width:54px;height:54px;border-radius:50%;padding:2px;background:var(--pink);display:grid;place-items:center}
+.dc-host .ring .av{width:48px;height:48px;font-size:14px;border:2px solid #0e0e12}
+.dc-host .ring.plain{background:#ffffff1a;font-size:16px}
+.dc-live{position:absolute;top:46px;background:var(--pink);font-size:8px;font-weight:700;border-radius:3px;padding:0 4px}
+.dc-host small{font-size:10px;color:var(--muted);margin-top:8px;max-width:58px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dc-chips{display:flex;justify-content:space-between;padding:0 12px}
+.dc-chips button{font-size:12px;color:var(--muted);padding:4px 10px;border-radius:999px}
+.dc-chips button.on{background:#ffffff26;color:#fff}
+
+.nav{position:absolute;left:0;right:0;bottom:0;height:calc(var(--nav-h) + var(--safe-b));z-index:20;display:flex;justify-content:space-around;
+  align-items:center;padding-bottom:var(--safe-b);background:#000;transition:opacity .2s;font-size:15px}
+.nav button{color:var(--muted);position:relative;min-width:44px}
+.nav button.on{color:var(--text);font-weight:700}
+.nav .plus{width:40px;height:28px;border:2px solid #fff;border-radius:8px;color:#fff;font-size:18px;line-height:22px;min-width:0}
+.badge99{position:absolute;top:-8px;right:-14px;background:var(--pink);color:#fff;font-style:normal;font-size:9px;font-weight:700;border-radius:8px;padding:0 4px}
+.proto{position:absolute;top:66px;right:12px;z-index:18;font-size:10px;color:#ffffff60;transition:opacity .2s}
+.app.entered .top,.app.entered .nav,.app.entered .proto,.app.entered .discover-toggle,.app.entered .discover{opacity:0;pointer-events:none}
+
+/* ---------- feed ---------- */
+.feed{position:absolute;inset:0;overflow-y:scroll;scroll-snap-type:y mandatory;scrollbar-width:none;overscroll-behavior:contain}
+.feed::-webkit-scrollbar{display:none}
+.room{position:relative;height:100%;scroll-snap-align:start;scroll-snap-stop:always;overflow:hidden}
+
+/* ---------- 9:16 stream canvas (placeholder for the real player) ---------- */
+.canvas{position:absolute;inset:0;background:#0c0c10}
+.cv-match{position:absolute;left:0;right:0;aspect-ratio:16/9;overflow:hidden;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--c1) 45%,#0b3d1f),#0b3d1f 55%,color-mix(in srgb,var(--c2) 40%,#0b3d1f))}
+.canvas.match-cam .cv-match{top:17%}
+.canvas.match .cv-match{top:22%}
+.cv-overlay{position:absolute;top:8px;left:8px;display:flex;align-items:center;gap:5px;background:#000b;border-radius:4px;padding:3px 8px;font-size:11px;font-weight:700}
+.cv-overlay i{width:9px;height:9px;border-radius:50%}
+.cv-overlay span{color:#ffd400;margin-left:4px}
+.cv-cam{position:absolute;overflow:hidden;background:linear-gradient(160deg,#3a3036,#1b1a20)}
+.canvas.match-cam .cv-cam{right:10px;top:calc(17% + 56.25vw + 12px);width:34%;aspect-ratio:3/4;border-radius:10px}
+@media (min-width:430px){ .canvas.match-cam .cv-cam{top:calc(17% + 242px + 12px)} }
+.cv-cam.big{inset:0}
+.cv-label{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:12px;color:#ffffff99;border:1px dashed #ffffff40;
+  border-radius:6px;padding:6px 10px;white-space:nowrap}
+
+/* ---------- preview state (not entered): no chat, no viewer count, no actions ---------- */
+.preview-ui{position:absolute;inset:0;z-index:5;pointer-events:none;transition:opacity .2s}
+.preview-ui > *{pointer-events:auto}
+.enter-pill{position:absolute;left:50%;top:76%;transform:translateX(-50%);display:flex;align-items:center;gap:4px;
+  background:#00000059;backdrop-filter:blur(4px);border-radius:999px;padding:7px 14px;font-size:13px;white-space:nowrap}
+.enter-pill svg{width:14px;height:14px}
+.p-info{position:absolute;left:12px;right:80px;bottom:calc(var(--nav-h) + var(--safe-b) + 12px);text-shadow:0 1px 2px #0008}
+.p-info .live-tag{display:inline-block;background:var(--pink);border-radius:3px;padding:1px 5px;font-size:10px;font-weight:600}
+.p-info .p-host{font-size:15px;font-weight:700;margin-top:6px}
+.p-info .p-title{font-size:13px;margin-top:3px;color:#ffffffe0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.app.entered .preview-ui{opacity:0;pointer-events:none}
+.app.entered .preview-ui > *{pointer-events:none}
+
+/* ---------- entered state ---------- */
+.live-ui{position:absolute;inset:0;z-index:5;opacity:0;pointer-events:none;transition:opacity .2s}
+.app.entered .live-ui{opacity:1;pointer-events:auto}
+.live-ui .shade{position:absolute;inset:0;background:linear-gradient(#0007,#0000 18%,#0000 55%,#0008);pointer-events:none}
+
+.lr-head{position:absolute;top:10px;left:8px;right:8px;display:flex;align-items:center;justify-content:space-between}
+.host-pill{display:flex;align-items:center;gap:6px;background:#0000004d;border-radius:999px;padding:2px 3px 2px 2px}
+.av{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700;flex:none}
+.host-pill .meta{display:flex;flex-direction:column;line-height:1.2;max-width:110px}
+.host-pill .meta b{font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.host-pill .meta small{font-size:10px;color:var(--muted)}
+.follow{background:var(--pink);border-radius:999px;padding:5px 11px;font-size:12px;font-weight:600}
+.follow.done{background:#ffffff33}
+.viewers{display:flex;align-items:center;gap:6px}
+.viewers .stack{display:flex}
+.viewers .stack .av{width:26px;height:26px;font-size:9px;margin-left:-8px;border:1.5px solid #000}
+.viewers .count{font-size:12px;background:#0000004d;border-radius:999px;padding:3px 8px}
+.exit{width:28px;height:28px;display:grid;place-items:center}
+.exit svg{width:20px;height:20px}
+.lr-sub{position:absolute;top:50px;left:12px;right:12px;display:flex;justify-content:space-between;font-size:11px;color:#ffffffd9}
+.lr-sub span{background:#0000004d;border-radius:999px;padding:2px 8px;display:flex;align-items:center}
+.lr-sub svg{width:12px;height:12px}
+
+/* chat (Douyin: plain text with shadow, no bubbles; a cyan safety notice first) */
+.chat{position:absolute;left:10px;right:90px;bottom:calc(var(--bar-h) + var(--safe-b) + 4px);height:36%;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:flex-end;gap:4px;
+  -webkit-mask-image:linear-gradient(transparent,#000 22%);mask-image:linear-gradient(transparent,#000 22%)}
+.msg{font-size:13px;line-height:1.4;text-shadow:0 1px 2px #000a;animation:up .25s ease}
+.msg .lv{display:inline-block;font-size:9px;font-weight:700;background:#4c7cff;border-radius:6px;padding:0 5px;margin-right:4px;vertical-align:1px}
+.msg b{color:var(--chat-name);font-weight:500;margin-right:4px}
+.msg.notice{color:var(--notice);font-size:12px}
+.msg.sys{color:#ffffffb3}
+.msg.me b{color:#ffd400}
+@keyframes up{from{transform:translateY(6px);opacity:0}}
+
+/* bottom bar (Douyin): "Say something…" + icons */
+.lr-bar{position:absolute;left:0;right:0;bottom:var(--safe-b);height:var(--bar-h);display:flex;align-items:center;gap:6px;padding:0 10px}
+.composer{flex:1;min-width:0}
+.composer input{width:100%;height:36px;background:#0000004d;border:0;border-radius:999px;color:#fff;padding:0 14px;font-size:14px;outline:none}
+.composer input::placeholder{color:#ffffffb3}
+.ib{width:36px;height:36px;display:grid;place-items:center;flex:none}
+.ib svg{width:26px;height:26px}
+
+/* likes floating up, hint, toast */
+.heart{position:absolute;z-index:9;pointer-events:none;font-size:26px;color:var(--pink);animation:float 1.1s ease-out forwards}
+@keyframes float{to{transform:translate(var(--dx),-160px) scale(1.4);opacity:0}}
+.hint{position:absolute;left:50%;top:40%;transform:translateX(-50%);z-index:15;background:#000b;border-radius:12px;
+  padding:10px 14px;font-size:13px;text-align:center;pointer-events:none;transition:opacity .4s;white-space:nowrap}
+.toast{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:50;background:#000d;padding:10px 16px;
+  border-radius:8px;font-size:13px;opacity:0;transition:opacity .25s;pointer-events:none}
+.toast.show{opacity:1}
