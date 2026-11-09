@@ -1,0 +1,157 @@
+/* Desktop layout (body.desk, screens 1024px+), copied from live.douyin.com. The phone layout is untouched. */
+body.desk{display:block;background:#161823;overflow:hidden}
+.desk .app{max-width:none;width:100%;height:100vh;border-radius:0;box-shadow:none;zoom:1;background:#161823;--side:200px;--topbar:60px}
+/* hide the phone chrome */
+.desk .top,.desk .discover-toggle,.desk .discover,.desk .proto,.desk .feed,.desk .nav,.desk .hint,.desk .feed-empty{display:none!important}
+
+/* sidebar */
+.d-side{position:absolute;left:0;top:0;bottom:0;width:var(--side);padding:14px 14px;display:flex;flex-direction:column;gap:12px;background:#161823;z-index:20}
+.d-logo{height:22px;width:auto;align-self:flex-start;margin:4px 8px 6px}
+.d-getapp{background:var(--pink);border-radius:8px;padding:10px;font-size:14px;font-weight:600}
+.d-nav{display:flex;flex-direction:column;gap:2px;margin-top:6px}
+.d-nav i{height:1px;background:var(--line);margin:8px 6px}
+.d-nav button{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:8px;font-size:16px;color:#ffffffbf;text-align:left}
+.d-nav button span{display:grid;place-items:center;width:20px}
+.d-nav button svg{width:20px;height:20px}
+.d-nav button:hover{background:#ffffff0f}
+.d-nav button.on{background:#ffffff1a;color:#fff;font-weight:600}
+.d-foot{margin-top:auto;font-size:12px;color:#ffffff59;line-height:1.7;padding:0 8px}
+.d-foot button{color:#ffffffa6;font-size:12px;text-decoration:underline}
+
+/* top bar */
+.d-top{position:absolute;left:var(--side);right:0;top:0;height:var(--topbar);display:flex;align-items:center;justify-content:center;padding:0 20px;z-index:20;background:#161823}
+.d-search{display:flex;width:min(500px,45%);height:40px;background:#ffffff1f;border:1px solid #ffffff26;border-radius:10px;overflow:hidden}
+.d-search input{flex:1;background:none;border:0;outline:0;color:#fff;font:inherit;font-size:15px;padding:0 14px}
+.d-search button{display:flex;align-items:center;gap:6px;padding:0 14px;font-size:14px;border-left:1px solid #ffffff26}
+.d-search svg{width:16px;height:16px}
+.d-actions{position:absolute;right:20px;display:flex;align-items:center;gap:16px}
+.d-actions > button{display:flex;flex-direction:column;align-items:center;gap:2px;color:#ffffffbf}
+.d-actions > button span{font-size:17px;position:relative}
+.d-actions > button small{font-size:11px}
+.dot3{position:absolute;top:-6px;right:-10px;background:var(--pink);font-style:normal;font-size:9px;font-weight:700;border-radius:8px;padding:0 4px;color:#fff}
+.d-actions .d-login{flex-direction:row;background:var(--pink);color:#fff;border-radius:8px;padding:9px 18px;font-size:14px;font-weight:600}
+.d-me .av{width:34px;height:34px;font-size:14px}
+
+/* main area: Home and the shared pages */
+.d-home,.desk .page{position:absolute;left:var(--side);right:0;top:var(--topbar);bottom:0;overflow-y:auto;padding:0 24px 40px}
+.desk .page{z-index:16;background:#161823}
+.desk.desk .page > *{max-width:960px;margin-left:auto;margin-right:auto}
+.desk .page .pg-head{background:#161823}
+.desk .page.room-mode{padding:0}
+.desk .page.room-mode > *{max-width:none}
+.desk .app.on-page .d-home{visibility:hidden}
+
+.d-cats{display:flex;gap:26px;padding:8px 2px 14px;font-size:16px}
+.d-cats button{color:#ffffffa6;padding-bottom:6px;border-bottom:2px solid transparent}
+.d-cats button.on{color:#fff;font-weight:700;border-bottom-color:var(--pink)}
+
+/* 9:16 canvas inside any box: center it, black sides */
+.d-canvas{position:relative;aspect-ratio:9/16;height:100%;margin:0 auto;overflow:hidden;background:#0c0c10}
+.d-canvas .canvas.match-cam .cv-cam{top:calc(48.6% + 8px)}   /* phone CSS used vw; here the canvas height drives it */
+.d-canvas .cv-overlay{font-size:11px}
+
+/* hero: featured player + following + 3 cards */
+.d-hero{display:grid;grid-template-columns:1.25fr 1fr;gap:16px;height:min(56vh,520px)}
+.d-feature{position:relative;background:#000;border-radius:12px;overflow:hidden;text-align:left}
+.d-feature .d-canvas{height:100%}
+.d-feature-info{position:absolute;left:16px;right:16px;bottom:16px;text-shadow:0 1px 3px #000}
+.d-feature-info .p-match,.d-hero .p-match{display:inline-block;font-size:13px;background:#00000080;border-radius:6px;padding:3px 8px;margin-bottom:8px}
+.d-feature-info .p-match b{color:#ffd400}
+.d-feature-host{display:flex;align-items:center;gap:8px;font-size:15px;margin-bottom:6px}
+.d-feature-host .av{width:28px;height:28px;font-size:11px}
+.d-feature-info .live-tag{background:var(--pink);border-radius:3px;padding:1px 6px;font-size:11px;font-weight:600}
+.d-feature-info > b{font-size:18px;display:block}
+.d-enter{position:absolute;right:16px;top:16px;display:flex;align-items:center;gap:6px;background:#00000080;border-radius:999px;padding:7px 14px;font-size:14px}
+.d-enter svg{width:15px;height:15px}
+.d-feature:hover .d-enter{background:var(--pink)}
+.d-hero-side{display:flex;flex-direction:column;gap:10px;min-height:0}
+.d-hero-side h3,.d-sec h3{font-size:16px;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+.d-sec h3 button{font-size:13px;color:#ffffffa6;font-weight:400}
+.d-follow-empty{background:#ffffff0f;border-radius:10px;padding:18px;text-align:center;font-size:14px;color:#ffffffb3}
+.d-follow-empty button{color:var(--pink);font-weight:600;margin-left:6px}
+.d-follow-row{display:flex;gap:16px;background:#ffffff0f;border-radius:10px;padding:10px 14px;overflow-x:auto}
+.d-follow-row button{display:flex;flex-direction:column;align-items:center;gap:4px}
+.d-follow-row .ring{width:50px;height:50px;border-radius:50%;padding:2px;background:var(--pink);display:grid;place-items:center}
+.d-follow-row .ring .av{width:44px;height:44px;border:2px solid #161823}
+.d-follow-row small{font-size:12px;color:#ffffffb3}
+.d-cards3{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+
+/* live card (vertical) */
+.d-card{position:relative;border-radius:10px;overflow:hidden;background:#000;text-align:left;min-height:0}
+.d-card .d-canvas{height:100%;width:100%;aspect-ratio:auto}
+.d-card .cv-label{display:none}
+.d-card-tag{position:absolute;left:8px;top:8px;background:var(--pink);border-radius:3px;font-size:10px;font-weight:700;padding:1px 5px}
+.d-card-info{position:absolute;left:0;right:0;bottom:0;padding:24px 10px 8px;background:linear-gradient(#0000,#000c);display:grid;grid-template-columns:1fr auto;gap:2px 6px}
+.d-card-info small{grid-column:1/-1;font-size:12px;color:#ffffffcc;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.d-card-info b{font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.d-vw{font-size:12px;color:#ffffffcc}
+.d-card:hover{outline:2px solid var(--pink)}
+
+.d-sec{margin-top:24px}
+.d-sec h3{margin-bottom:12px}
+.d-matches{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(340px,1fr);gap:10px;overflow-x:auto;padding-bottom:6px}
+.d-matches .mc{margin:0}
+.d-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.d-grid .d-card{aspect-ratio:9/14}
+.d-grid.wide{padding:0 16px}
+
+/* live room page */
+.d-room{display:flex;height:100%}
+.d-stage{position:relative;flex:1;min-width:0;overflow:hidden;background:color-mix(in srgb,var(--c1) 35%,#111)}
+.d-stage::before{content:"";position:absolute;inset:-40px;background:radial-gradient(circle at 30% 40%,color-mix(in srgb,var(--c1) 55%,#000),transparent 60%),radial-gradient(circle at 70% 60%,color-mix(in srgb,var(--c2) 55%,#000),transparent 60%);filter:blur(30px);opacity:.8}
+.d-stage .d-canvas{position:relative;height:100%;z-index:1}
+.d-stage-top{position:absolute;left:14px;right:14px;top:12px;display:flex;align-items:center;gap:10px;z-index:3}
+.d-back{width:34px;height:34px;border-radius:50%;background:#00000066;display:grid;place-items:center}
+.d-back svg{width:18px;height:18px;transform:rotate(180deg)}
+.d-rank{margin-left:auto;background:#00000066;border-radius:999px;padding:4px 10px;font-size:13px}
+.d-stage .score-bar{top:60px;z-index:3}
+.d-nav-arrows{position:absolute;right:16px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:3}
+.d-nav-arrows button{width:38px;height:38px;border-radius:50%;background:#00000066;font-size:13px}
+.d-nav-arrows button:hover{background:var(--pink)}
+.d-controls{position:absolute;left:14px;right:14px;bottom:12px;display:flex;align-items:center;gap:14px;z-index:3;font-size:14px}
+.d-controls span{flex:1}
+.d-controls button{opacity:.85}
+.d-title{position:absolute;left:16px;bottom:52px;z-index:3;max-width:28%;text-shadow:0 1px 3px #000}
+.d-title b{display:block;font-size:16px}
+.d-title small{font-size:13px;color:#ffffffb3}
+.d-stage .heart{z-index:5}
+.d-panel{position:relative;width:340px;flex:none;background:#1f1f27;display:flex;flex-direction:column;min-height:0}
+.d-viewers{padding:12px 14px;border-bottom:1px solid var(--line)}
+.d-viewers h4{font-size:14px;margin-bottom:8px}
+.d-viewers ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.d-viewers li{display:flex;align-items:center;gap:8px;font-size:13px}
+.d-viewers .av{width:26px;height:26px;font-size:10px}
+.d-viewers li i{font-style:normal;font-size:10px;background:#4c7cff;border-radius:6px;padding:0 5px}
+.d-matchcard{margin:10px 12px 0;background:#ffffff0f;border-radius:10px;padding:10px 12px;display:grid;grid-template-columns:1fr auto;gap:4px;text-align:left;font-size:13px}
+.d-matchcard span{color:#ffffffa6}
+.d-matchcard b{grid-column:1;font-size:15px}
+.d-matchcard em{font-style:normal;color:#ffd400;margin:0 4px}
+.d-matchcard small{grid-row:1;grid-column:2;color:#ffffffa6}
+.d-matchcard u{grid-column:2;grid-row:2;text-decoration:none;color:var(--pink)}
+.d-panel .chat{position:relative;left:auto;right:auto;bottom:auto;flex:1;height:auto;min-height:0;padding:10px 14px;-webkit-mask-image:none;mask-image:none;justify-content:flex-end;overflow:hidden}
+.d-panel .msg{font-size:14px;text-shadow:none}
+.d-compose{padding:10px 12px;border-top:1px solid var(--line);display:flex;gap:6px;align-items:center}
+.d-compose .composer input{background:#ffffff14}
+.d-login-chat{width:100%;padding:11px;border-radius:8px;background:#ffffff14;font-size:14px;color:#ffffffcc}
+.d-login-chat:hover{background:var(--pink);color:#fff}
+.d-panel .sheet{z-index:10}
+.d-panel .sheet-panel{height:100%;border-radius:0}
+
+/* match sheet opened from Home/Schedule: centered column instead of full width */
+.desk .app > .sheet .sheet-panel{left:50%;right:auto;width:560px;margin-left:-280px;height:70%}
+
+/* login: centered window with QR column (douyin.com style) */
+.desk .auth-panel{left:50%;top:50%;bottom:auto;width:720px;max-width:92vw;border-radius:16px;padding:28px;display:flex;gap:28px;
+  transform:translate(-50%,-40%);opacity:0;transition:transform .2s,opacity .2s}
+.desk .auth.show .auth-panel{transform:translate(-50%,-50%);opacity:1}
+.auth-qr{width:220px;flex:none;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;border-right:1px solid #1618231a;padding-right:28px}
+.auth-qr h3{font-size:16px}
+.auth-qr .qr{width:160px;height:160px;border-radius:10px;border:1px solid #1618231f;
+  background:conic-gradient(#161823 25%,#fff 0 50%,#161823 0 75%,#fff 0) 0 0/20px 20px;opacity:.85}
+.auth-qr p{font-size:12px;color:#16182399;line-height:1.5}
+.desk .auth-body{flex:1}
+
+/* drawer and toast still work on desktop */
+.desk .drawer{z-index:50}
+.desk .toast{z-index:70}
+.desk .page .days,.desk .page .me-tabs,.desk .page .sr-head{background:#161823}
