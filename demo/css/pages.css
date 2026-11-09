@@ -62,3 +62,90 @@
 .guest-box{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;padding:60px 32px}
 .guest-box p{color:var(--muted);font-size:15px;line-height:1.5}
 .guest-box .auth-btn{width:auto;padding:12px 32px}
+
+/* ---------- v10: Me profile (Douyin style) ---------- */
+.me{padding:0}
+.me-cover{height:96px;background:#1f2a44;display:flex;justify-content:flex-end;gap:6px;padding:10px 10px 0}
+.me-ic{width:34px;height:34px;border-radius:50%;background:#00000059;display:grid;place-items:center}
+.me-ic svg{width:18px;height:18px}
+.me-head{padding:0 16px 14px;margin-top:-34px;display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.me-head .av.big{width:76px;height:76px;font-size:28px;border:3px solid #000}
+.me-head h2{font-size:20px;margin-top:6px}
+.me-head > small{font-size:13px;color:var(--muted)}
+.me-head .me-stats{display:flex;gap:24px;padding:10px 0 6px}
+.me-head .me-stats b{font-size:17px;display:inline;margin-right:4px}
+.me-head .me-stats small{font-size:13px;color:var(--muted)}
+.me-head .me-stats div{display:flex;align-items:baseline}
+.me-btns{display:flex;gap:8px;width:100%;margin-top:4px}
+.me-btns button{flex:1;background:#ffffff1f;border-radius:6px;padding:9px;font-size:14px}
+.me-head .auth-btn{margin-top:6px}
+.me-sec{font-size:14px;color:var(--muted);font-weight:600;margin:10px 16px 8px;display:flex;align-items:center;gap:8px}
+.host-tag{background:var(--pink);color:#fff;border-radius:4px;font-size:11px;padding:1px 6px}
+.me-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin:0 12px;background:#141414;border-radius:12px;padding:10px 4px}
+.me-grid button{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 2px}
+.me-grid span{font-size:22px}
+.me-grid small{font-size:12px;color:#ffffffd9;text-align:center;line-height:1.25}
+.demo-switch{display:block;margin:12px auto 4px;font-size:12px;color:#ffd400;border:1px dashed #ffd40080;border-radius:999px;padding:5px 12px}
+.me-tabs{display:flex;border-bottom:1px solid var(--line);margin-top:10px;position:sticky;top:0;background:#000;z-index:2}
+.me-tabs button{flex:1;padding:12px 0;font-size:15px;color:var(--muted);border-bottom:2px solid transparent}
+.me-tabs button.on{color:#fff;font-weight:700;border-bottom-color:#fff}
+.me-body{padding:8px 12px 24px}
+.host-row{width:100%;display:flex;align-items:center;gap:12px;padding:10px 4px;border-bottom:1px solid var(--line);text-align:left}
+.host-row .av{width:44px;height:44px;font-size:14px}
+.host-row div{flex:1;min-width:0}
+.host-row b{font-size:15px;display:block}
+.host-row small{font-size:13px;color:var(--muted);display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ---------- v10: side drawer (☰) ---------- */
+.drawer{position:absolute;inset:0;z-index:45;pointer-events:none}
+.drawer-backdrop{position:absolute;inset:0;background:#0009;opacity:0;transition:opacity .2s}
+.drawer-panel{position:absolute;top:0;bottom:0;left:0;width:82%;max-width:340px;background:#121212;overflow-y:auto;padding:18px 14px 24px;
+  transform:translateX(-100%);transition:transform .25s ease}
+.drawer.show{pointer-events:auto}
+.drawer.show .drawer-backdrop{opacity:1}
+.drawer.show .drawer-panel{transform:none}
+.dr-user{width:100%;display:flex;align-items:center;gap:12px;padding:6px 2px 14px;text-align:left}
+.dr-user .av{width:48px;height:48px;font-size:18px}
+.dr-user div{flex:1}
+.dr-user b{font-size:17px;display:block}
+.dr-user small{font-size:13px;color:var(--muted)}
+.dr-user svg,.dr-item svg{width:16px;height:16px;opacity:.5}
+.dr-guest{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;padding:8px 6px 16px}
+.dr-guest .av{width:56px;height:56px}
+.dr-guest .av svg{width:28px;height:28px}
+.dr-guest p{font-size:14px;color:var(--muted);line-height:1.4}
+.drawer h4{font-size:13px;color:var(--muted);font-weight:600;margin:4px 2px 8px}
+.dr-hosts{display:flex;gap:12px;overflow-x:auto;padding-bottom:12px;scrollbar-width:none}
+.dr-hosts button{display:flex;flex-direction:column;align-items:center;gap:6px;width:56px;flex:none}
+.dr-hosts .ring{width:52px;height:52px;border-radius:50%;padding:2px;background:var(--pink);display:grid;place-items:center}
+.dr-hosts .ring .av{width:46px;height:46px;font-size:13px;border:2px solid #121212}
+.dr-hosts small{font-size:11px;color:var(--muted);max-width:56px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dr-group{background:#1c1c1c;border-radius:12px;margin-bottom:12px;overflow:hidden}
+.dr-item{width:100%;display:flex;align-items:center;gap:8px;padding:14px;font-size:15px;border-bottom:1px solid var(--line);text-align:left}
+.dr-item:last-child{border-bottom:0}
+.dr-item span{flex:1}
+.dr-item small{color:var(--muted);font-size:13px}
+.dr-badge{font-style:normal;background:var(--pink);border-radius:999px;font-size:11px;font-weight:700;padding:1px 7px}
+.dr-ver{text-align:center;font-size:11px;color:#ffffff59;margin-top:12px}
+
+/* ---------- v10: search ---------- */
+.sr-head{position:sticky;top:0;z-index:2;background:#000;display:flex;align-items:center;gap:8px;padding:10px 10px 8px}
+.sr-back{width:30px;height:36px;display:grid;place-items:center}
+.sr-back svg{width:20px;height:20px;transform:rotate(180deg)}
+.sr-form{flex:1;display:flex;align-items:center;gap:6px;background:#ffffff1f;border-radius:8px;height:38px;padding:0 10px}
+.sr-form span svg{width:18px;height:18px;opacity:.7}
+.sr-form input{flex:1;min-width:0;background:none;border:0;outline:0;color:#fff;font:inherit;font-size:15px}
+.sr-go{color:var(--pink);font-weight:600;font-size:15px;padding:0 4px}
+.sr-body .league{display:flex;justify-content:space-between;align-items:center}
+.sr-clear{font-size:12px;color:var(--muted);font-weight:400}
+.chips.wrap{flex-wrap:wrap;padding:0 4px 6px}
+.sr-trend{list-style:none;padding:0 4px}
+.sr-trend li{display:flex;gap:12px;padding:10px 0;font-size:15px;border-bottom:1px solid var(--line);cursor:pointer}
+.sr-trend b{width:18px;color:var(--muted)}
+.sr-trend li:nth-child(-n+3) b{color:var(--pink)}
+.sr-room{width:100%;display:flex;gap:10px;align-items:center;padding:8px 0;text-align:left}
+.sr-thumb{width:64px;height:84px;border-radius:8px;flex:none;position:relative}
+.sr-thumb i{position:absolute;left:4px;top:4px;background:var(--pink);font-style:normal;font-size:10px;font-weight:700;border-radius:3px;padding:0 4px}
+.sr-room div{min-width:0}
+.sr-room b{font-size:15px;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sr-room small{font-size:13px;color:var(--muted)}
