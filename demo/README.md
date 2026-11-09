@@ -36,6 +36,9 @@
   - Demo 用：主頁上的黃色按鈕可以在會員和主播之間切換，方便展示。
 - **直接打開登入畫面**：網址加 `#/login`。
 
+## v13：桌機首頁 banner
+首頁左上改成輪播 banner（`js/banner-data.js` 設定內容，正式版由營運後台管理）。每 5 秒換一張、滑鼠移上去暫停、箭頭和圓點切換。
+
 ## v11 新增：桌機版（參考 live.douyin.com）
 螢幕寬 1024px 以上自動切換成桌機版；手機和平板維持手機版。
 - **左側選單**：logo、下載 App、首頁、追蹤、賽程、消息、我的；底部切換中文／English。
@@ -65,6 +68,7 @@ demo/
     ├── i18n-pages.js v9 頁面的介面文字
     ├── schedule-data.js 假的賽程（正式版接 TheSports）
     ├── mock-data.js  假的直播間、聊天資料
+    ├── banner-data.js  桌機首頁 banner 內容（v13）
     ├── match-data.js 假的比賽數據（正式版接 TheSports）
     ├── match-sheet.js 比賽數據面板：總覽、陣容、對戰紀錄、近期戰績、積分榜
     ├── stage.js      9:16 畫布佔位：比賽＋主播鏡頭／只有比賽／只有主播（正式版換成騰訊雲播放器）
