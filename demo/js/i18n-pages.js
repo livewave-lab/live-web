@@ -1,0 +1,48 @@
+/* UI text for the pages added in v9: schedule, login/sign-up, Me, Inbox, in-room match info.
+   Merged into I18N from i18n.js. */
+Object.assign(I18N.en, {
+  // schedule
+  schTitle:"Schedule", yesterday:"Yesterday", today:"Today", tomorrow:"Tomorrow", all:"All",
+  watch:"Watch", hostsLive:"hosts live", remind:"Remind me", reminded:"Reminder set", ft:"FT", noMatches:"No matches on this day",
+  reminderToast:"We'll notify you before kick-off",
+  // auth
+  loginTitle:"Log in or sign up", loginSub:"Chat, follow hosts and get match reminders",
+  phone:"Phone number", getCode:"Get code", agree:"I agree to the Terms of Service and Privacy Policy",
+  agreeFirst:"Please agree to the terms first", badPhone:"Enter a valid Vietnamese phone number",
+  codeTitle:"Enter the 6-digit code", codeSent:"Code sent to", demoCode:"Demo code: 123456", wrongCode:"Wrong code",
+  resend:"Resend", resendIn:"Resend in", nickTitle:"Choose a nickname", nickHint:"Shown in chat. You can change it later.",
+  done:"Done", orWith:"or continue with", google:"Continue with Google", welcome:"Welcome", loggedOut:"Logged out",
+  // me / inbox
+  meGuest:"Not logged in", meGuestSub:"Log in to chat, follow hosts and get reminders", loginBtn:"Log in / Sign up",
+  meFollowing:"Following", meReminders:"Reminders", meHistory:"Watch history", meLanguage:"Language", meSettings:"Settings",
+  meHelp:"Help & feedback", logout:"Log out", meTerms:"Terms & privacy",
+  inboxTitle:"Inbox", inboxGuest:"Log in to see messages and reminders",
+  ibSystem:"System notice", ibSystemText:"Welcome to Coichua! Read the community rules before chatting.",
+  ibLive:"is live now", ibRemind:"Kick-off in 15 minutes",
+  followGuest:"Log in to see the hosts you follow", followEmpty:"You're not following anyone yet. Tap Follow in a live room.",
+  goLive:"Going live is for verified hosts (ID check required). Coming soon.",
+  // in-room match info
+  goal:"GOAL", yellowCard:"Yellow card", corner:"Corner", sub:"Substitution", threePt:"3-pointer", kill:"Takedown",
+  tapData:"Tap for match data"
+});
+Object.assign(I18N.zh, {
+  schTitle:"賽程", yesterday:"昨天", today:"今天", tomorrow:"明天", all:"全部",
+  watch:"觀看", hostsLive:"位主播在播", remind:"提醒我", reminded:"已設提醒", ft:"完場", noMatches:"這天沒有比賽",
+  reminderToast:"開賽前會通知你",
+  loginTitle:"登入或註冊", loginSub:"登入後可以留言、追蹤主播、設定比賽提醒",
+  phone:"手機號碼", getCode:"取得驗證碼", agree:"我同意服務條款和隱私政策",
+  agreeFirst:"請先同意條款", badPhone:"請輸入正確的越南手機號碼",
+  codeTitle:"輸入 6 位數驗證碼", codeSent:"驗證碼已傳送到", demoCode:"Demo 驗證碼：123456", wrongCode:"驗證碼錯誤",
+  resend:"重新傳送", resendIn:"重新傳送", nickTitle:"設定暱稱", nickHint:"會顯示在聊天室，之後可以改。",
+  done:"完成", orWith:"或使用", google:"用 Google 繼續", welcome:"歡迎", loggedOut:"已登出",
+  meGuest:"尚未登入", meGuestSub:"登入後可以留言、追蹤主播、設定提醒", loginBtn:"登入／註冊",
+  meFollowing:"追蹤中", meReminders:"比賽提醒", meHistory:"觀看紀錄", meLanguage:"語言", meSettings:"設定",
+  meHelp:"幫助與回饋", logout:"登出", meTerms:"條款與隱私",
+  inboxTitle:"消息", inboxGuest:"登入後查看消息和提醒",
+  ibSystem:"系統通知", ibSystemText:"歡迎來到 Coichua！留言前請先看社群規範。",
+  ibLive:"正在直播", ibRemind:"15 分鐘後開賽",
+  followGuest:"登入後查看你追蹤的主播", followEmpty:"還沒有追蹤任何主播。在直播間按「追蹤」。",
+  goLive:"開播只限通過身分驗證的主播，之後開放。",
+  goal:"進球", yellowCard:"黃牌", corner:"角球", sub:"換人", threePt:"三分球", kill:"擊殺",
+  tapData:"點擊看比賽數據"
+});

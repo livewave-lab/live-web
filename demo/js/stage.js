@@ -6,7 +6,7 @@ const Stage = (() => {
   function canvasHTML(room){
     const match = `
       <div class="cv-match" style="--c1:${room.home[2]};--c2:${room.away[2]}">
-        <div class="cv-overlay"><i style="background:${room.home[2]}"></i>${room.home[1]} <b>${room.score}</b> ${room.away[1]}<i style="background:${room.away[2]}"></i><span>${room.min}</span></div>
+        <div class="cv-overlay"><i style="background:${room.home[2]}"></i>${room.home[1]} <b class="sc">${room.score}</b> ${room.away[1]}<i style="background:${room.away[2]}"></i><span class="mn">${room.min}</span></div>
         <span class="cv-label">${t("cvMatch")}</span>
       </div>`;
     const cam = big => `<div class="cv-cam ${big ? "big" : ""}"><span class="cv-label">${t("cvCam")}</span></div>`;

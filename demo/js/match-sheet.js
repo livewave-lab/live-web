@@ -4,6 +4,8 @@ const MatchSheet = (() => {
   let current = null;
 
   function tabsFor(room){
+    if (room.status === "upcoming")   // not started: no live stats yet
+      return room.sport === "football" ? ["h2h","form","table"] : ["h2h","table"];
     return room.sport === "football"
       ? ["overview","lineups","h2h","form","table"]
       : ["overview","h2h","table"];
@@ -66,7 +68,7 @@ const MatchSheet = (() => {
       <div class="sheet-backdrop"></div>
       <div class="sheet-panel" role="dialog" aria-label="${t("matchData")}">
         <button class="sheet-handle" aria-label="${t("close")}"><i></i></button>
-        <div class="sheet-head"><b>${room.home[0]} ${room.score} ${room.away[0]}</b><span>${room.league} · ${room.min}</span></div>
+        <div class="sheet-head"><b>${room.home[0]} ${room.score || "vs"} ${room.away[0]}</b><span>${room.league}${room.min ? " · " + room.min : room.time ? " · " + room.time : ""}</span></div>
         <nav class="sheet-tabs">${tabs.map((k, i) => `<button data-tab="${k}" class="${i ? "" : "on"}">${t("tab_" + k)}</button>`).join("")}</nav>
         <div class="sheet-body"></div>
       </div>`;
