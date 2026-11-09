@@ -77,7 +77,14 @@ function render(){
 
 /* ---------- entering and leaving ---------- */
 let active = 0;
-function enter(){ app.classList.remove("discover-open"); app.classList.add("entered"); startChat(active); hideHint(); }
+/* Watch history for this browser tab (shown on the Me page). Production stores it per account. */
+let HISTORY = [];
+try { HISTORY = JSON.parse(sessionStorage.getItem("demoHistory")) || []; } catch (e) {}
+function remember(i){
+  HISTORY = [i, ...HISTORY.filter(x => x !== i)].slice(0, 20);
+  try { sessionStorage.setItem("demoHistory", JSON.stringify(HISTORY)); } catch (e) {}
+}
+function enter(){ app.classList.remove("discover-open"); app.classList.add("entered"); startChat(active); hideHint(); remember(active); }
 function exit(){ MatchSheet.close(); app.classList.remove("entered"); stopChat(); }
 
 /* ---------- chat simulation: only inside the entered room ---------- */
@@ -137,7 +144,7 @@ function observe(){
       const i = +e.target.dataset.i;
       if (active !== i) MatchSheet.close();
       active = i;
-      if (app.classList.contains("entered")) startChat(i);
+      if (app.classList.contains("entered")){ startChat(i); remember(i); }
       if (i > 0) hideHint();
     }
   }), {root: feed, threshold: [.6]});
@@ -210,6 +217,8 @@ feed.addEventListener("focusin", e => {   // guests: tapping "Say something…" 
   if (e.target.matches(".composer input") && !Auth.user){ e.target.blur(); Auth.require(() => e.target.focus()); }
 });
 document.querySelectorAll(".top [data-icon]").forEach(b => b.insertAdjacentHTML("afterbegin", Icons[b.dataset.icon]));
+document.querySelector(".tb-menu").onclick = () => Drawer.open();          // top-left: side menu (drawer.js)
+document.querySelector(".tb-search").onclick = () => { location.hash = "#/search"; };   // top-right: search (search.js)
 
 /* "Live discovery" panel: live hosts row + category chips (Douyin's pull-down) */
 const discover = document.getElementById("discover");

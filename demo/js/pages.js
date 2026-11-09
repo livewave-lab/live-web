@@ -84,28 +84,86 @@ const Pages = (() => {
       `<div class="ib-row">${av}<div><b>${a}</b><p>${b}</p></div><small>${c}</small></div>`).join("")}</div>`;
   }
 
-  /* ---------- Me ---------- */
+  /* ---------- Me: personal profile page (Douyin style) ---------- */
+  let meTab = "following";
+  function hostRow(i){
+    const r = ROOMS[i];
+    return `<button class="host-row" data-open="${i}"><span class="av" style="background:${r.home[2]}">${r.ini}</span>
+      <div><b>${r.host}</b><small>${r.title}</small></div><span class="mc-live">${t("live")}</span></button>`;
+  }
+  function meTabBody(){
+    const u = Auth.user;
+    if (meTab === "history"){
+      return HISTORY.length ? HISTORY.map(hostRow).join("") : `<p class="empty">${t("historyEmpty")}</p>`;
+    }
+    if (!u) return `<p class="empty">${t("meGuestSub")}</p>`;
+    if (meTab === "following")
+      return u.following.length ? u.following.map(hostRow).join("") : `<p class="empty">${t("followEmpty")}</p>`;
+    const ms = SCHEDULE.filter(m => u.reminders.includes(m.id));
+    return ms.length ? ms.map(matchCard).join("") : `<p class="empty">${t("remindEmpty")}</p>`;
+  }
+  /* Tools depend on the account type: members get member tools; streamers also get the streamer centre.
+     Streamer functions are placeholders: the streamer backend is planned but not built yet. */
+  function tools(u){
+    const tile = (k, icon, label) => `<button data-tool="${k}"><span>${icon}</span><small>${t(label)}</small></button>`;
+    const member = `<h3 class="me-sec">${t("memberTools")}</h3><div class="me-grid">
+        ${tile("inbox", "✉️", "nInbox")}${tile("reminders", "🔔", "meReminders")}${tile("history", "🕘", "meHistory")}
+        ${u.role === "host" ? tile("wallet", "💰", "wallet") : tile("apply", "🎙️", "becomeHost")}</div>`;
+    const host = u.role === "host" ? `<h3 class="me-sec">${t("hostTools")} <span class="host-tag">${t("hostBadge")}</span></h3><div class="me-grid">
+        ${tile("golive", "🔴", "goLiveBtn")}${tile("pickmatch", "⚽", "pickMatch")}${tile("obs", "🔑", "streamKey")}
+        ${tile("stats", "📊", "liveStats")}${tile("fans", "👥", "fans")}${tile("rules", "📄", "hostRules")}</div>` : "";
+    return host + member + `<button class="demo-switch" data-tool="switch">${t(u.role === "host" ? "demoAsMember" : "demoAsHost")}</button>`;
+  }
   function me(){
     const u = Auth.user;
-    const top = u
-      ? `<div class="me-top"><span class="av big" style="background:#fe2c55">${u.name[0].toUpperCase()}</span>
-           <div><b>${u.name}</b><small>${u.phone}</small></div></div>
-         <div class="me-stats"><div><b>${u.following.length}</b><small>${t("meFollowing")}</small></div>
-           <div><b>${u.reminders.length}</b><small>${t("meReminders")}</small></div></div>`
-      : `<div class="me-top"><span class="av big guest">${Icons.user}</span>
-           <div><b>${t("meGuest")}</b><small>${t("meGuestSub")}</small></div></div>
-         <button class="auth-btn" data-me="login">${t("loginBtn")}</button>`;
-    const items = [["following","meFollowing"],["reminders","meReminders"],["history","meHistory"],
-                   ["lang","meLanguage"],["settings","meSettings"],["help","meHelp"],["terms","meTerms"]];
-    page.innerHTML = `<div class="pg-body me">${top}
-      <div class="me-list">${items.map(([k, l]) => `<button data-me="${k}"><span>${t(l)}</span>${k === "lang" ? `<small>${lang === "zh" ? "中文" : "English"}</small>` : ""}${Icons.chevron}</button>`).join("")}</div>
-      ${u ? `<button class="me-logout" data-me="logout">${t("logout")}</button>` : ""}</div>`;
+    const id = u ? "@" + u.name.toLowerCase() : "";
+    const tabs = [["following","meFollowing"],["reminders","meReminders"],["history","meHistory"]];
+    page.innerHTML = `
+      <div class="me">
+        <div class="me-cover">
+          <button class="me-ic" data-me="share" aria-label="${t("share")}">${Icons.share}</button>
+          <button class="me-ic" data-me="menu" aria-label="${t("menu")}">${Icons.menu}</button>
+        </div>
+        <div class="me-head">
+          ${u ? `<span class="av big" style="background:#fe2c55">${u.name[0].toUpperCase()}</span>`
+              : `<span class="av big guest">${Icons.user}</span>`}
+          <h2>${u ? u.name : t("meGuest")}</h2>
+          <small>${u ? `${id} · ${u.phone}` : t("meGuestSub")}</small>
+          <div class="me-stats">
+            <div><b>${u ? u.following.length : 0}</b><small>${t("meFollowing")}</small></div>
+            <div><b>0</b><small>${t("followers")}</small></div>
+            <div><b>${u ? u.reminders.length : 0}</b><small>${t("meReminders")}</small></div>
+          </div>
+          ${u ? `<div class="me-btns"><button data-me="edit">${t("editProfile")}</button><button data-me="share">${t("shareProfile")}</button></div>`
+              : `<button class="auth-btn" data-me="login">${t("loginBtn")}</button>`}
+        </div>
+        ${u ? tools(u) : ""}
+        <nav class="me-tabs">${tabs.map(([k, l]) => `<button data-metab="${k}" class="${k === meTab ? "on" : ""}">${t(l)}</button>`).join("")}</nav>
+        <div class="me-body">${meTabBody()}</div>
+      </div>`;
+  }
+  page.addEventListener("click", e => {
+    const tb = e.target.closest("[data-metab]"); if (tb){ meTab = tb.dataset.metab; me(); return; }
+    const o = e.target.closest("[data-open]"); if (o) openRoom(+o.dataset.open);
+    const tl = e.target.closest("[data-tool]"); if (tl) toolAction(tl.dataset.tool);
+  });
+  function toolAction(k){
+    if (k === "switch"){ Auth.update(u => { u.role = u.role === "host" ? "member" : "host"; }); return; }
+    if (k === "inbox"){ location.hash = "#/inbox"; return; }
+    if (k === "reminders" || k === "history"){ showMeTab(k); return; }
+    if (k === "apply"){ toast(t("applyNote")); return; }
+    toast(t("hostSoon"));   // streamer centre: backend not built yet
+  }
+  function showMeTab(k){
+    meTab = k;
+    if (location.hash !== "#/me") location.hash = "#/me"; else me();
+    setTimeout(() => { const b = page.querySelector(".me-tabs"); if (b) page.scrollTo({top: b.offsetTop - 8, behavior: "smooth"}); }, 80);
   }
   function meAction(k){
     if (k === "login") return Auth.open();
     if (k === "logout") return Auth.logout();
-    if (k === "lang"){ lang = lang === "en" ? "zh" : "en"; relabel(); return; }
-    if (k === "following" || k === "reminders") return Auth.require(() => { if (k === "reminders"){ schDay = 0; location.hash = "#/schedule"; } else { location.hash = "#/"; setFeedTab("following"); } });
+    if (k === "menu") return Drawer.open();
+    if (k === "share"){ toast(t("copied")); return; }
     toast(t("soon"));
   }
 
@@ -115,7 +173,9 @@ const Pages = (() => {
   /* ---------- router ---------- */
   const ROUTES = {schedule, inbox, me};
   function route(){
-    const name = location.hash.replace(/^#\/?/, "") || "";
+    let name = location.hash.replace(/^#\/?/, "") || "";
+    if (name === "login"){ history.replaceState(null, "", "#/me"); name = "me"; setTimeout(() => Auth.open(), 50); }   // shareable link straight to the login sheet
+    Drawer.close();
     const fn = ROUTES[name];
     MatchSheet.close();
     document.querySelectorAll(".nav [data-route]").forEach(b => b.classList.toggle("on", b.dataset.route === name));
@@ -130,5 +190,5 @@ const Pages = (() => {
   window.addEventListener("hashchange", route);
   Auth.onChange(refresh);
 
-  return {route, refresh, guest};
+  return {route, refresh, guest, matchCard, showMeTab, register: (name, fn) => { ROUTES[name] = fn; }};
 })();

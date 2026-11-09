@@ -23,7 +23,16 @@ Object.assign(I18N.en, {
   goLive:"Going live is for verified hosts (ID check required). Coming soon.",
   // in-room match info
   goal:"GOAL", yellowCard:"Yellow card", corner:"Corner", sub:"Substitution", threePt:"3-pointer", kill:"Takedown",
-  tapData:"Tap for match data"
+  tapData:"Tap for match data",
+  // v10: drawer, search, profile
+  menu:"Menu", followingLive:"Following · live now", downloadApp:"Download the app", followers:"Followers",
+  editProfile:"Edit profile", shareProfile:"Share profile", historyEmpty:"Rooms you watch will show up here", remindEmpty:"No reminders yet. Tap Remind me on the Schedule.",
+  search:"Search", searchPh:"Search hosts, teams, leagues", recent:"Recent", clear:"Clear", trending:"Trending", liveNow:"Live now", noResults:"No results for",
+  memberTools:"My tools", hostTools:"Streamer centre", hostBadge:"Streamer", becomeHost:"Become a streamer", wallet:"Earnings",
+  goLiveBtn:"Go live", pickMatch:"Pick a match", streamKey:"OBS stream key", liveStats:"Live data", fans:"Fans", hostRules:"Streamer rules",
+  demoAsHost:"Demo: view as a streamer", demoAsMember:"Demo: view as a member",
+  applyNote:"Apply with your ID. The team reviews it, then the Streamer centre unlocks. (Coming later)",
+  hostSoon:"Streamer backend: planned for a later version"
 });
 Object.assign(I18N.zh, {
   schTitle:"賽程", yesterday:"昨天", today:"今天", tomorrow:"明天", all:"全部",
@@ -44,5 +53,13 @@ Object.assign(I18N.zh, {
   followGuest:"登入後查看你追蹤的主播", followEmpty:"還沒有追蹤任何主播。在直播間按「追蹤」。",
   goLive:"開播只限通過身分驗證的主播，之後開放。",
   goal:"進球", yellowCard:"黃牌", corner:"角球", sub:"換人", threePt:"三分球", kill:"擊殺",
-  tapData:"點擊看比賽數據"
+  tapData:"點擊看比賽數據",
+  menu:"選單", followingLive:"追蹤中 · 正在直播", downloadApp:"下載 App", followers:"粉絲",
+  editProfile:"編輯資料", shareProfile:"分享主頁", historyEmpty:"看過的直播間會出現在這裡", remindEmpty:"還沒有提醒。到賽程頁按「提醒我」。",
+  search:"搜尋", searchPh:"搜尋主播、球隊、聯賽", recent:"最近搜尋", clear:"清除", trending:"熱門搜尋", liveNow:"正在直播", noResults:"找不到",
+  memberTools:"我的功能", hostTools:"主播中心", hostBadge:"主播", becomeHost:"成為主播", wallet:"收益",
+  goLiveBtn:"開始直播", pickMatch:"選擇賽事", streamKey:"OBS 推流金鑰", liveStats:"直播數據", fans:"粉絲", hostRules:"主播規範",
+  demoAsHost:"Demo：切換成主播帳號看看", demoAsMember:"Demo：切換成一般會員",
+  applyNote:"上傳身分證申請，營運審核通過後開啟主播中心。（之後的版本）",
+  hostSoon:"主播後台：之後的版本會做"
 });

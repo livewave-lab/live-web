@@ -92,7 +92,7 @@ const Auth = (() => {
     body.querySelector("form").onsubmit = e => {
       e.preventDefault();
       const name = inp.value.trim().replace(/[<>&"]/g, "") || suggestion;
-      user = {name, phone: masked, following: [], reminders: []};
+      user = {name, phone: masked, role: "member", following: [], reminders: []};   // role: "member" or "host" (streamer)
       changed(); close(); toast(`${t("welcome")}, ${name}!`);
       const fn = pending; pending = null; fn && fn();
     };
