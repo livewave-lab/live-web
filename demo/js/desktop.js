@@ -69,11 +69,16 @@ const Desktop = (() => {
 
   /* ---------- cards ---------- */
   const canvasBox = (r, cls = "") => `<div class="d-canvas ${cls}">${Stage.canvasHTML(r)}</div>`;
+  /* Card thumbnail (v14): a preview image of the stream (r.cover, a snapshot the server takes every
+     ~30 s in production), lazy-loaded. The demo has no images, so it shows a gray loading placeholder.
+     Match rooms also get a small score chip. */
+  const thumbBox = r => `<div class="d-thumb">${r.cover ? `<img src="${r.cover}" loading="lazy" alt="">` : ""}
+    ${r.league ? `<span class="d-thumb-score">${scoreHTML(r)}</span>` : ""}</div>`;
   const viewersIcon = n => `<span class="d-vw">👤 ${fmt(n)}</span>`;
   function liveCard(i){
     const r = ROOMS[i];
     return `<button class="d-card" data-room="${i}">
-      ${canvasBox(r)}
+      ${thumbBox(r)}
       <span class="d-card-tag">${t("live")}</span>
       <div class="d-card-info"><small>${r.title}</small><b>@${r.host}</b>${viewersIcon(r.viewers)}</div></button>`;
   }

@@ -1,6 +1,7 @@
 /* Fake rooms and chat lines for the demo. Replace with real API data in the production project.
    layout = how the streamer composed their 9:16 canvas (done in OBS, not by the website):
-   "match-cam" landscape match + host camera, "match" landscape match only, "cam" host camera only. */
+   "match-cam" landscape match + host camera, "match" landscape match only, "cam" host camera only.
+   cover = preview image URL for cards (production: a stream snapshot); empty in the demo → gray placeholder. */
 const ROOMS = [
   {layout:"match-cam",rank:"Hourly #3",sport:"football",host:"Minh Anh",ini:"MA",title:"Live commentary: Premier League showdown 🔥",league:"Premier League",
    home:["Man City","MC","#6cabdd"],away:["Liverpool","LIV","#c8102e"],score:"1 - 1",min:"67'",viewers:12480,likes:8800},
