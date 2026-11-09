@@ -32,7 +32,12 @@ Object.assign(I18N.en, {
   goLiveBtn:"Go live", pickMatch:"Pick a match", streamKey:"OBS stream key", liveStats:"Live data", fans:"Fans", hostRules:"Streamer rules",
   demoAsHost:"Demo: view as a streamer", demoAsMember:"Demo: view as a member",
   applyNote:"Apply with your ID. The team reviews it, then the Streamer centre unlocks. (Coming later)",
-  hostSoon:"Streamer backend: planned for a later version"
+  hostSoon:"Streamer backend: planned for a later version",
+  // v11: desktop
+  noMatchData:"This room isn't tied to a match", catEnt:"Entertainment", getApp:"Get the app", myFollowing:"Following",
+  noFollowLive:"Nobody you follow is live right now", moreLive:"More live", todayMatches:"Today's matches", viewSchedule:"Full schedule",
+  onlineViewers:"Online viewers", loginToChat:"Log in to start chatting", quality:"Original",
+  qrTitle:"Scan to log in", qrNote:"Open the Coichua app and scan the code (app coming later)"
 });
 Object.assign(I18N.zh, {
   schTitle:"賽程", yesterday:"昨天", today:"今天", tomorrow:"明天", all:"全部",
@@ -61,5 +66,9 @@ Object.assign(I18N.zh, {
   goLiveBtn:"開始直播", pickMatch:"選擇賽事", streamKey:"OBS 推流金鑰", liveStats:"直播數據", fans:"粉絲", hostRules:"主播規範",
   demoAsHost:"Demo：切換成主播帳號看看", demoAsMember:"Demo：切換成一般會員",
   applyNote:"上傳身分證申請，營運審核通過後開啟主播中心。（之後的版本）",
-  hostSoon:"主播後台：之後的版本會做"
+  hostSoon:"主播後台：之後的版本會做",
+  noMatchData:"這個直播間沒有綁比賽", catEnt:"娛樂", getApp:"下載 App", myFollowing:"我的關注",
+  noFollowLive:"暫時沒有關注的人在直播", moreLive:"更多直播", todayMatches:"今日賽事", viewSchedule:"完整賽程",
+  onlineViewers:"在線觀眾", loginToChat:"登入後才能開始聊天", quality:"原畫",
+  qrTitle:"掃碼登入", qrNote:"打開 Coichua App 掃描（App 之後推出）"
 });

@@ -21,7 +21,9 @@ const Auth = (() => {
     const el = document.createElement("div");
     el.className = "auth";
     el.innerHTML = `<div class="auth-backdrop"></div><div class="auth-panel" role="dialog" aria-label="${t("loginTitle")}">
-      <button class="auth-x" aria-label="${t("close")}">${Icons.close}</button><div class="auth-body"></div></div>`;
+      <button class="auth-x" aria-label="${t("close")}">${Icons.close}</button>
+      ${document.body.classList.contains("desk") ? `<div class="auth-qr"><h3>${t("qrTitle")}</h3><div class="qr"></div><p>${t("qrNote")}</p></div>` : ""}
+      <div class="auth-body"></div></div>`;   // desktop: centered window with a QR column, like douyin.com
     document.getElementById("app").appendChild(el);
     el.querySelector(".auth-backdrop").onclick = close;
     el.querySelector(".auth-x").onclick = close;

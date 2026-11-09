@@ -193,7 +193,7 @@ feed.addEventListener("click", e => {
   if (act === "enter") enter();
   if (act === "exit") exit();
   if (act === "like") like(room);
-  if (act === "data") MatchSheet.open(room, ROOMS[i], i);
+  if (act === "data"){ if (ROOMS[i].league) MatchSheet.open(room, ROOMS[i], i); else toast(t("noMatchData")); }
   if (act === "emoji") toast(t("soon"));
   if (act === "follow") Auth.require(() => {
     if (!Auth.user.following.includes(i)) Auth.update(u => u.following.push(i));
@@ -227,7 +227,7 @@ function renderDiscover(){
     <button class="dc-host" data-room="${i}"><span class="ring"><span class="av" style="background:${r.home[2]}">${r.ini}</span></span>
       <span class="dc-live">${t("live")}</span><small>${r.host}</small></button>`).join("") +
     `<button class="dc-host more"><span class="ring plain">···</span><small>${t("history")}</small></button>`;
-  document.getElementById("dcChips").innerHTML = ["catFeatured","catFollowing","catFootball","catBasketball","catEsports","catChat"]
+  document.getElementById("dcChips").innerHTML = ["catFeatured","catFollowing","catFootball","catBasketball","catEsports","catEnt","catChat"]
     .map((k, i) => `<button class="${i ? "" : "on"}">${t(k)}</button>`).join("");
 }
 document.getElementById("discoverToggle").onclick = () => app.classList.toggle("discover-open");

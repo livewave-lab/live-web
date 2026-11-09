@@ -11,7 +11,12 @@ const ROOMS = [
   {layout:"match-cam",rank:"Hourly #1",sport:"esports",host:"Gamer Long",ini:"GL",title:"LoL grand final – casting with the squad",league:"Esports · LoL",
    home:["Team A","A","#2ee6a6"],away:["Team B","B","#ffd166"],score:"1 - 2",min:"Game 4",viewers:15730,likes:11040},
   {layout:"match",rank:"Popular #5",sport:"basketball",host:"Quoc Bao",ini:"QB",title:"NBA this morning: Lakers vs Warriors",league:"NBA",
-   home:["Lakers","LAL","#fdb927"],away:["Warriors","GSW","#1d428a"],score:"88 - 91",min:"Q3 04:12",viewers:6890,likes:3900}
+   home:["Lakers","LAL","#fdb927"],away:["Warriors","GSW","#1d428a"],score:"88 - 91",min:"Q3 04:12",viewers:6890,likes:3900},
+  // rooms not tied to a match (entertainment / chat): no score bar, no match data
+  {layout:"cam",rank:"Popular #8",sport:"entertainment",host:"Lan Chi",ini:"LC",title:"Late-night acoustic covers 🎸 requests open",league:"",
+   home:["","","#e07a5f"],away:["","","#3d405b"],score:"",min:"",viewers:3820,likes:5400},
+  {layout:"cam",rank:"Hourly #9",sport:"chat",host:"Bao Ngoc",ini:"BN",title:"Chat & chill: weekend hot takes, come say hi",league:"",
+   home:["","","#2a9d8f"],away:["","","#264653"],score:"",min:"",viewers:2950,likes:1830}
 ];
 const NAMES = ["Alex","Linh","Sam","Trang","Duc","Ngoc","Kai","Vy","Leo","Mia","Ben","Quan"];
 const LINES = ["GOAL!!! ⚽","Great call by the host","Second half is way better","Who wins this one?","Defense looks shaky",

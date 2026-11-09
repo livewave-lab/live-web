@@ -57,9 +57,15 @@ const Search = (() => {
       const o = e.target.closest("[data-open]"); if (o){ save(query); openRoom(+o.dataset.open); }
     };
     draw();
-    setTimeout(() => input.focus(), 100);
+    if (!document.body.classList.contains("desk")) setTimeout(() => input.focus(), 100);
   }
 
   Pages.register("search", () => render(document.getElementById("page")));
-  return {render};
+  /* Search from somewhere else (the desktop top bar). */
+  function go(q){
+    q = (q || "").trim(); if (!q) return;
+    query = q; save(q);
+    if (location.hash === "#/search") render(document.getElementById("page")); else location.hash = "#/search";
+  }
+  return {render, go};
 })();

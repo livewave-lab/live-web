@@ -175,18 +175,28 @@ const Pages = (() => {
   function route(){
     let name = location.hash.replace(/^#\/?/, "") || "";
     if (name === "login"){ history.replaceState(null, "", "#/me"); name = "me"; setTimeout(() => Auth.open(), 50); }   // shareable link straight to the login sheet
+    const [base, arg] = name.split("/");          // e.g. "live/2" -> base "live", arg "2"
     Drawer.close();
-    const fn = ROUTES[name];
     MatchSheet.close();
-    document.querySelectorAll(".nav [data-route]").forEach(b => b.classList.toggle("on", b.dataset.route === name));
+    if (base === "live" && !ROUTES.live){          // phone: #/live/2 opens that room in the feed (shareable room link)
+      history.replaceState(null, "", "#/"); app.classList.remove("on-page"); page.innerHTML = "";
+      setTimeout(() => openRoom(+arg || 0), 50); return;
+    }
+    const fn = ROUTES[base];
+    document.querySelectorAll(".nav [data-route], .d-side [data-route]").forEach(b => b.classList.toggle("on", b.dataset.route === base));
+    page.classList.toggle("room-mode", base === "live");
     if (fn){
       if (app.classList.contains("entered")) exit();
-      app.classList.add("on-page"); page.scrollTop = 0; fn();
+      app.classList.add("on-page"); page.scrollTop = 0; fn(arg);
     } else {
       app.classList.remove("on-page"); page.innerHTML = "";
     }
+    window.dispatchEvent(new CustomEvent("routed", {detail: base}));
   }
-  function refresh(){ const name = location.hash.replace(/^#\/?/, ""); if (ROUTES[name]) ROUTES[name](); }
+  function refresh(){
+    const [base, arg] = location.hash.replace(/^#\/?/, "").split("/");
+    if (ROUTES[base] && base !== "live") ROUTES[base](arg);
+  }
   window.addEventListener("hashchange", route);
   Auth.onChange(refresh);
 
