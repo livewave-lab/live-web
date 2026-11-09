@@ -1,0 +1,64 @@
+/* Pages from the bottom menu: Schedule, Inbox, Me. Dark, Douyin-like lists. */
+.pg-head{position:sticky;top:0;z-index:2;background:#000;padding:14px 16px 8px}
+.pg-head h1{font-size:20px}
+.pg-body{padding:4px 12px 24px}
+.empty{color:var(--muted);text-align:center;padding:40px 16px;font-size:15px;line-height:1.5}
+
+/* schedule: date strip + sport chips */
+.days{display:flex;gap:6px;padding:4px 12px 8px;overflow-x:auto;scrollbar-width:none;position:sticky;top:50px;background:#000;z-index:2}
+.days button{flex:1;min-width:64px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 2px;border-radius:10px;background:#ffffff12;font-size:13px;white-space:nowrap;color:var(--muted)}
+.days button small{font-size:11px}
+.days button.on{background:#fff;color:#000}
+.chips{display:flex;gap:8px;padding:4px 12px 6px;overflow-x:auto;scrollbar-width:none}
+.chips button{font-size:14px;color:var(--muted);padding:5px 12px;border-radius:999px;background:#ffffff12;white-space:nowrap}
+.chips button.on{background:var(--pink);color:#fff}
+.league{font-size:13px;color:var(--muted);font-weight:600;margin:14px 4px 6px}
+
+/* match card */
+.mc{display:flex;align-items:center;gap:10px;background:#141414;border-radius:12px;padding:10px 12px;margin-bottom:8px;cursor:pointer}
+.mc-time{width:52px;flex:none;display:flex;flex-direction:column;align-items:flex-start;gap:3px;font-size:14px;font-weight:600}
+.mc-time small{font-size:12px;color:var(--muted);font-weight:400}
+.mc-live{background:var(--pink);border-radius:3px;font-size:11px;font-weight:700;padding:1px 5px}
+.mc-teams{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.mc-team{display:flex;align-items:center;gap:8px;font-size:15px;color:#ffffffd9}
+.mc-team i{width:24px;height:24px;border-radius:50%;flex:none;font-style:normal;font-size:8px;font-weight:800;color:#000;display:grid;place-items:center}
+.mc-team span{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mc-team b{min-width:24px;text-align:right;font-size:16px}
+.mc-team.win{color:#fff;font-weight:600}
+.mc-act{flex:none}
+.mc-watch{display:flex;align-items:center;gap:6px;background:var(--pink);border-radius:999px;padding:6px 12px 6px 6px;font-size:13px;font-weight:600}
+.mc-watch .stack{display:flex}
+.mc-watch .av{width:22px;height:22px;font-size:8px;border:1.5px solid var(--pink)}
+.mc-remind{border:1px solid #ffffff40;border-radius:999px;padding:6px 10px;font-size:13px}
+.mc-remind.on{border-color:#ffd400;color:#ffd400}
+
+/* inbox */
+.ib-row{display:flex;align-items:center;gap:12px;padding:12px 4px;border-bottom:1px solid var(--line)}
+.ib-row .av{width:44px;height:44px;font-size:14px}
+.ib-row .av.sys{background:#2a2a2a}
+.ib-row div{flex:1;min-width:0}
+.ib-row b{font-size:15px}
+.ib-row p{font-size:13px;color:var(--muted);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ib-row small{font-size:12px;color:var(--muted);align-self:flex-start}
+
+/* me + guest box */
+.me{padding-top:24px}
+.av.big{width:64px;height:64px;font-size:24px}
+.av.guest{background:#2a2a2a;color:#ffffffb3}
+.av.guest svg{width:32px;height:32px}
+.me-top{display:flex;align-items:center;gap:14px;padding:0 4px 16px}
+.me-top b{font-size:19px;display:block}
+.me-top small{font-size:13px;color:var(--muted)}
+.me-stats{display:flex;gap:32px;padding:0 4px 16px}
+.me-stats b{font-size:18px;display:block}
+.me-stats small{font-size:13px;color:var(--muted)}
+.me-list{background:#141414;border-radius:12px;margin-top:8px;overflow:hidden}
+.me-list button{width:100%;display:flex;align-items:center;gap:8px;padding:14px;font-size:15px;border-bottom:1px solid var(--line);text-align:left}
+.me-list button:last-child{border-bottom:0}
+.me-list button span{flex:1}
+.me-list small{color:var(--muted);font-size:13px}
+.me-list svg{width:16px;height:16px;opacity:.5}
+.me-logout{width:100%;margin-top:16px;padding:13px;border-radius:12px;background:#141414;color:#ff6b81;font-size:15px}
+.guest-box{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;padding:60px 32px}
+.guest-box p{color:var(--muted);font-size:15px;line-height:1.5}
+.guest-box .auth-btn{width:auto;padding:12px 32px}
