@@ -185,3 +185,11 @@ body.desk{display:block;background:#161823;overflow:hidden}
 .d-bn-dots button{width:8px;height:8px;border-radius:4px;background:#ffffff4d;transition:width .3s,background .3s}
 .d-bn-dots button.on{width:22px;background:#fff}
 @media (prefers-reduced-motion:reduce){.d-slide{transition:none}}
+
+/* v14: live cards show a preview image (lazy-loaded); gray loading placeholder until it arrives */
+.d-thumb{position:absolute;inset:0;background:#2a2a30;overflow:hidden}
+.d-thumb::before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,#ffffff10 50%,transparent 70%);background-size:220% 100%;animation:shimmer 1.6s linear infinite}
+.d-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.d-thumb-score{position:absolute;right:8px;top:8px;font-size:11px;font-weight:700;background:#000000a6;border-radius:4px;padding:2px 6px}
+.d-thumb-score b{color:#ffd400}
+@media (prefers-reduced-motion:reduce){.d-thumb::before{animation:none}}
