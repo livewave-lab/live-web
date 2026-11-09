@@ -155,3 +155,6 @@ body.desk{display:block;background:#161823;overflow:hidden}
 .desk .drawer{z-index:50}
 .desk .toast{z-index:70}
 .desk .page .days,.desk .page .me-tabs,.desk .page .sr-head{background:#161823}
+/* v12: neutral blurred sides in the room (no team colors) */
+.d-stage{background:#1b1b20}
+.d-stage::before{background:radial-gradient(circle at 50% 45%,#3a3a42,transparent 65%);opacity:.6}

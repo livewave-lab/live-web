@@ -157,3 +157,16 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .app.on-page .page{display:block}
 .app.on-page .top,.app.on-page .discover-toggle,.app.on-page .proto,.app.on-page .discover,.app.on-page .feed-empty{display:none}
 .nav{z-index:21}
+
+/* ---------- v12: neutral placeholders instead of colored blocks ----------
+   The real video isn't connected in the demo, so stream areas show a gray "loading" skeleton
+   (shimmer), like an image that hasn't loaded yet. Production replaces them with the player. */
+.cv-match,.cv-cam{background:#26262b}
+.cv-cam{background:#2e2e34}
+.cv-match::before,.cv-cam::before{content:"";position:absolute;inset:0;
+  background:linear-gradient(100deg,transparent 30%,#ffffff12 50%,transparent 70%);background-size:220% 100%;animation:shimmer 1.6s linear infinite}
+@keyframes shimmer{from{background-position:120% 0}to{background-position:-120% 0}}
+@media (prefers-reduced-motion:reduce){ .cv-match::before,.cv-cam::before{animation:none} }
+.cv-label{border:0;display:flex;flex-direction:column;align-items:center;gap:6px;color:#ffffff73;font-size:12px}
+.cv-label::before{content:"▶";display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#ffffff1a;font-size:12px;color:#ffffffa6}
+.cv-cam .cv-label::before{content:"●";font-size:14px}
