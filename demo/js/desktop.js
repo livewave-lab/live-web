@@ -1,5 +1,5 @@
 /* Desktop layout (screens 1024px and wider), copied from live.douyin.com:
-   left sidebar · top search bar · Home = featured live player + "Following" + live cards + "More live" grid ·
+   left sidebar · top search bar · Home = rotating promo banner (v13) + "Following" + live cards + "More live" grid ·
    live room page (#/live/N) = stream in the middle with blurred sides, viewers + chat panel on the right.
    Phones and tablets keep the phone layout. Pages (Schedule, Me, Inbox, Search) are shared with the phone version.
    Depends on everything else; loaded after pages.js / drawer.js / search.js, before main.js. */
@@ -79,31 +79,66 @@ const Desktop = (() => {
   }
   const inCat = i => cat === "all" || ROOMS[i].sport === cat;
 
+  /* ---------- Home banner (v13) ----------
+     Rotating promo banners from BANNERS (banner-data.js): every 5 s, paused on hover,
+     arrows + dots to switch. Match banners use the team colors from SCHEDULE. */
+  let slide = 0, bannerTimer = null;
+  const badge = (team, big) => `<span class="d-bn-badge${big ? " big" : ""}" style="background:${team[2]}">${team[1]}</span>`;
+  function slideHTML(b, k){
+    const x = b[lang] || b.en;
+    let visual = "", bg = "";
+    if (b.kind === "match"){
+      const m = SCHEDULE.find(s => s.id === b.match);
+      bg = `background:linear-gradient(110deg,#18181f 40%,${m.home[2]}55 75%,${m.away[2]}77)`;
+      visual = `<div class="d-bn-vs">${badge(m.home, 1)}<div class="d-bn-mid">${m.score ? `<b>${m.score}</b><small>${m.min}</small>` : `<b>VS</b><small>${m.time}</small>`}</div>${badge(m.away, 1)}</div>`;
+    } else {
+      bg = `background:linear-gradient(110deg,#18181f 45%,${b.color}40)`;
+      visual = `<div class="d-bn-icon" style="box-shadow:0 0 80px ${b.color}66">${b.icon}</div>`;
+    }
+    return `<div class="d-slide${k === slide ? " on" : ""}" data-bn="${k}" style="${bg}">
+      <div class="d-bn-text"><span class="d-bn-tag${b.act === "watch" ? " live" : ""}">${x.tag}</span><h2>${x.title}</h2><p>${x.sub}</p>
+        <button class="d-bn-cta">${x.cta}</button></div>${visual}</div>`;
+  }
+  function bannerHTML(){
+    return `<div class="d-banner" id="dBanner">${BANNERS.map(slideHTML).join("")}
+      <button class="d-bn-arrow prev" data-bnstep="-1" aria-label="prev">‹</button>
+      <button class="d-bn-arrow next" data-bnstep="1" aria-label="next">›</button>
+      <div class="d-bn-dots">${BANNERS.map((b, k) => `<button data-bngo="${k}" class="${k === slide ? "on" : ""}"></button>`).join("")}</div></div>`;
+  }
+  function showSlide(k){
+    slide = (k + BANNERS.length) % BANNERS.length;
+    const el = document.getElementById("dBanner"); if (!el) return;
+    el.querySelectorAll(".d-slide").forEach((s, j) => s.classList.toggle("on", j === slide));
+    el.querySelectorAll(".d-bn-dots button").forEach((s, j) => s.classList.toggle("on", j === slide));
+  }
+  function startBanner(){
+    clearInterval(bannerTimer);
+    bannerTimer = setInterval(() => { const el = document.getElementById("dBanner"); if (el && !el.matches(":hover") && el.offsetParent) showSlide(slide + 1); }, 5000);
+  }
+  function bannerAction(b){
+    const m = b.match && SCHEDULE.find(s => s.id === b.match);
+    if (b.act === "watch") openRoom(m.roomIndex);
+    if (b.act === "remind") Auth.require(() => { Auth.update(u => { if (!u.reminders.includes(m.id)) u.reminders.push(m.id); }); toast(t("reminderToast")); });
+    if (b.act === "apply") Auth.require(() => toast(t("applyNote")));
+    if (b.act === "app") toast(t("soon"));
+    if (b.act === "schedule") location.hash = "#/schedule";
+  }
+
   /* ---------- Home ---------- */
   function renderHome(){
     const all = ROOMS.map((r, i) => i);
     const list = all.filter(inCat);
-    const feat = list[0] ?? 0;
-    const fr = ROOMS[feat];
     const u = Auth.user;
     const followed = u ? u.following : [];
     const followBox = !u ? `<div class="d-follow-empty">${t("followGuest")} <button data-do2="login">${t("loginBtn")}</button></div>`
       : followed.length ? `<div class="d-follow-row">${followed.map(i => `<button data-room="${i}"><span class="ring"><span class="av" style="background:${ROOMS[i].home[2]}">${ROOMS[i].ini}</span></span><small>${ROOMS[i].host}</small></button>`).join("")}</div>`
       : `<div class="d-follow-empty">${t("noFollowLive")}</div>`;
-    const side3 = list.filter(i => i !== feat).slice(0, 3);
+    const side3 = list.slice(0, 3);
     const today = SCHEDULE.filter(m => m.day === 0 && m.status !== "ft").sort((a, b) => (a.status === "live" ? 0 : 1) - (b.status === "live" ? 0 : 1));
     home.innerHTML = `
       <nav class="d-cats">${CATS.map(([k, l]) => `<button data-cat="${k}" class="${k === cat ? "on" : ""}">${t(l)}</button>`).join("")}</nav>
       <section class="d-hero">
-        <button class="d-feature" data-room="${feat}">
-          ${canvasBox(fr, "tall")}
-          <div class="d-feature-info">
-            ${fr.league ? `<div class="p-match">${SPORT_ICON[fr.sport] || ""} ${fr.league} · ${scoreHTML(fr)} · <span class="mn">${fr.min}</span></div>` : ""}
-            <div class="d-feature-host"><span class="av" style="background:${fr.home[2]}">${fr.ini}</span>${fr.host}<span class="live-tag">${t("live")}</span></div>
-            <b>${fr.title}</b>
-          </div>
-          <span class="d-enter">${Icons.bars} ${t("enter")}</span>
-        </button>
+        ${bannerHTML()}
         <div class="d-hero-side">
           <h3>${t("myFollowing")}</h3>
           ${followBox}
@@ -119,9 +154,13 @@ const Desktop = (() => {
         <h3>${t("moreLive")}</h3>
         <div class="d-grid">${list.map(liveCard).join("") || `<p class="empty">${t("noMatches")}</p>`}</div>
       </section>`;
+    startBanner();
   }
   home.addEventListener("click", e => {
     const c = e.target.closest("[data-cat]"); if (c){ cat = c.dataset.cat; renderHome(); return; }
+    const bs = e.target.closest("[data-bnstep]"); if (bs){ showSlide(slide + +bs.dataset.bnstep); startBanner(); return; }
+    const bg = e.target.closest("[data-bngo]"); if (bg){ showSlide(+bg.dataset.bngo); startBanner(); return; }
+    const bn = e.target.closest("[data-bn]"); if (bn){ bannerAction(BANNERS[+bn.dataset.bn]); return; }
     if (e.target.closest("[data-do2=login]")){ Auth.open(); return; }
     const rt = e.target.closest("[data-route2]"); if (rt){ location.hash = "#/" + rt.dataset.route2; return; }
     const w = e.target.closest("[data-watch]"); if (w){ openRoom(+w.dataset.watch); return; }
